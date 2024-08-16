@@ -1,6 +1,10 @@
 package inventorySystem;
 
+import java.io.File;
+
 public class inventoryManager {
+	
+	private File inventorySheet;
 	
 	
 	//load all required resources
@@ -42,7 +46,7 @@ public class inventoryManager {
 				//remove item
 					//delete item from inventory
 					//save inventory
-				
+				  
 	
 	
 	public static void main(String[] args)
