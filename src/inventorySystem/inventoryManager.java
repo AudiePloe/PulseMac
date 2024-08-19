@@ -2,21 +2,43 @@ package inventorySystem;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Iterator;
 
-import org.apache.poi.*;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
+class Item
+{
+	String name;
+	String partNumber;
+	String desc;
+	String keyWord;
+	
+	public void printItem()
+	{
+		System.out.println(name + ", " + partNumber + ", " + desc + ", " + keyWord);
+	}
+}
+
+
 public class inventoryManager {
 	
-	private File inventorySheet;
+	//private static XSSFWorkbook inventorySheet;
+	
+	private static Item[] inventory = new Item[0];
+	
 	
 	
 	//load all required resources
@@ -65,57 +87,108 @@ public class inventoryManager {
 	{
 		initilize();
 		
+		
 	}
 	
 	private static void initilize()
 	{
-		loadItems();
-		loadProjects();
-	}
-	
-	private static void loadItems()
-	{
-		
-		
-		XSSFWorkbook wb = new XSSFWorkbook();
-		XSSFCreationHelper createHelper = wb.getCreationHelper();
-		XSSFSheet sheet = wb.createSheet("new sheet");
-
-		// Create a row and put some cells in it. Rows are 0 based.
-		XSSFRow row = sheet.createRow((short)0);
-		// Create a cell and put a value in it.
-		XSSFCell cell = row.createCell(0);
-		cell.setCellValue(1);
-
-		// Or do it on one line.
-		row.createCell(1).setCellValue(1.2);
-		row.createCell(2).setCellValue(
-				createHelper.createRichTextString("This is a string"));
-		row.createCell(3).setCellValue(true);
-
-		// Write the output to a file
-		FileOutputStream out;
 		try {
-			out = new FileOutputStream("workbook.xls");
-			
-			wb.write(out);
-			out.close();
-			
-		} catch (IOException e) {
+			loadItems();
+			loadProjects();
+
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private static void loadItems() throws Exception
+	{
+		int rownum = 0;
+
+		FileInputStream file = new FileInputStream(
+				new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xls"));
+
+		// Create Workbook instance holding reference to .xlsx file
+		XSSFWorkbook wb = new XSSFWorkbook(file);
+
+		// Get first/desired sheet from the workbook
+		XSSFSheet sheet = wb.getSheetAt(0);
+
+		inventory = new Item[sheet.getLastRowNum() + 1];
 		
+		// Iterate through each rows one by one
+		Iterator<Row> rowIterator = sheet.iterator();
 		
+		while (rowIterator.hasNext()) 
+		{
+			Row row = rowIterator.next();
+			
+			// For each row, iterate through all the columns
+			Iterator<Cell> cellIterator = row.cellIterator();
+
+			inventory[rownum] = new Item();
+			
+			Cell cell = cellIterator.next();
+			inventory[rownum].name = cell.getStringCellValue();
+			cell = cellIterator.next();
+			inventory[rownum].partNumber = cell.getStringCellValue();
+			cell = cellIterator.next();
+			inventory[rownum].desc = cell.getStringCellValue();
+			cell = cellIterator.next();
+			inventory[rownum].keyWord = cell.getStringCellValue();
+			
+			rownum++;
+		}
 		
+		// show data read from file
+		for(int i = 0; i < inventory.length; i++)
+		{
+			inventory[i].printItem();
+			System.out.println();
+		}
 		
-		
-		
+		System.out.println("");
+
+		file.close();
 	}
 	
 	private static void loadProjects()
 	{
 		
+	}
+	
+	private static void writeToFile()
+	{
+
+		/*
+		 * XSSFWorkbook wb = new XSSFWorkbook(); 
+		 * XSSFSheet sheet = wb.createSheet("new sheet");
+		 * 
+		 * // Create a row and put some cells in it. Rows are 0 based. 
+		 * XSSFRow row = sheet.createRow((short)0); 
+		 * 
+		 * // Create a cell and put a value in it. 
+		 * XSSFCell cell = row.createCell(0); cell.setCellValue(1);
+		 * 
+		 * // Or do it on one line. 
+		 * row.createCell(1).setCellValue(1.2);
+		 * row.createCell(2).setCellValue(true);
+		 * 
+		 * row = sheet.createRow((short)1);
+		 * row.createCell(0).setCellValue("Hello world");
+		 * 
+		 * // Write the output to a file FileOutputStream out;
+		 *  try { 
+		 *  	out = new FileOutputStream("workbook.xls");
+		 * 
+		 * 		wb.write(out); out.close();
+		 * 
+		 * } catch (IOException e) { 
+		 * 		// TODO Auto-generated catch block
+		 * 		e.printStackTrace(); 
+		 * }
+		 */
 	}
 
 }
