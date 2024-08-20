@@ -98,7 +98,7 @@ public class inventoryManager {
 		try {
 			loadItems();
 			loadProjects();
-			writeToFile(workBook);
+			writeToFile(workBook, inventory);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -204,7 +204,7 @@ public class inventoryManager {
 		}
 	}
 	
-	private static void writeToFile(File f) throws IOException
+	private static void writeToFile(File f, Item[] items) throws IOException
 	{
 		System.out.println();
 		System.out.println();
@@ -229,22 +229,22 @@ public class inventoryManager {
 
 			Cell cell = cellIterator.next();
 			
-			cell.setCellValue(inventory[i].name);
+			cell.setCellValue(items[i].name);
 			cell = cellIterator.next();
-			cell.setCellValue(inventory[i].partNumber);
+			cell.setCellValue(items[i].partNumber);
 			cell = cellIterator.next();
-			cell.setCellValue(inventory[i].desc);
+			cell.setCellValue(items[i].desc);
 			cell = cellIterator.next();
-			cell.setCellValue(inventory[i].keyWord);
+			cell.setCellValue(items[i].keyWord);
 			
-			System.out.println("Writing: " + inventory[i].name);
+			System.out.println("Writing: " + items[i].name);
 			
 			if(rowIterator.hasNext())
 				row = rowIterator.next();
 		}
 
 		// Write the output to a file FileOutputStream out;
-		FileOutputStream out = new FileOutputStream("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xlsx");
+		FileOutputStream out = new FileOutputStream(f.getPath());
 
 		wb.write(out);
 		out.close();
