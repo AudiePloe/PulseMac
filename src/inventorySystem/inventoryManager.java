@@ -223,7 +223,7 @@ public class inventoryManager {
 		
 		row = rowIterator.next(); // skip the data types row
 
-		for (int i = 0; i < inventory.length; i++) 
+		for (int i = 0; i < items.length; i++) 
 		{
 			Iterator<Cell> cellIterator = row.cellIterator();
 
