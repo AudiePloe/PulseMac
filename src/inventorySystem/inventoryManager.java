@@ -37,8 +37,9 @@ public class inventoryManager {
 	
 	//private static XSSFWorkbook inventorySheet;
 	
-	private static Item[] inventory = new Item[0];
+	private static Item[] inventory;
 	
+	private static File[] projects;
 	
 	
 	//load all required resources
@@ -107,7 +108,7 @@ public class inventoryManager {
 		int rownum = 0;
 
 		FileInputStream file = new FileInputStream(
-				new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xls"));
+				new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xlsx"));
 
 		// Create Workbook instance holding reference to .xlsx file
 		XSSFWorkbook wb = new XSSFWorkbook(file);
@@ -167,7 +168,38 @@ public class inventoryManager {
 	
 	private static void loadProjects()
 	{
+		File file = new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\");
 		
+		
+		File[] list = file.listFiles();
+		projects = new File[0];
+		int f = 0;
+		if (list != null) 
+		{
+			for (File fil : list) 
+			{
+				if (fil.getName().contains("project.xlsx"))
+				{
+					File[] tmp = projects;
+					projects = new File[tmp.length + 1];
+					
+					for(int i = 0; i < tmp.length; i++)
+					{
+						projects[i] = tmp[i];
+					}
+					
+					projects[f] = fil;
+					f++;
+				}
+			}
+		}
+		
+		System.out.println("Projects found: ");
+		for(int i = 0; i < projects.length; i++)
+		{
+			System.out.println(projects[i].getName());
+		}
+
 	}
 	
 	private static void writeToFile()
