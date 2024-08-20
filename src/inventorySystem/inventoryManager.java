@@ -3,6 +3,7 @@ package inventorySystem;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -38,6 +39,7 @@ public class inventoryManager {
 	//private static XSSFWorkbook inventorySheet;
 	
 	private static Item[] inventory;
+	private static File workBook = new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xlsx");
 	
 	private static File[] projects;
 	
@@ -96,6 +98,7 @@ public class inventoryManager {
 		try {
 			loadItems();
 			loadProjects();
+			writeToFile(workBook);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -121,11 +124,11 @@ public class inventoryManager {
 		Iterator<Row> rowIterator = sheet.iterator();
 		
 		inventory = new Item[sheet.getLastRowNum()]; // if no data type is on the excel sheet, add a +1 to the array count
-		Row row = rowIterator.next();  // Skipping the first entry that shows the data types for excel users.
+		Row row = rowIterator.next();
 		
 		while (rowIterator.hasNext()) 
 		{
-			row = rowIterator.next();
+			row = rowIterator.next();  // Skipping the first entry that shows the data types for excel users.
 			
 			// For each row, iterate through all the columns
 			Iterator<Cell> cellIterator = row.cellIterator();
@@ -199,40 +202,52 @@ public class inventoryManager {
 		{
 			System.out.println(projects[i].getName());
 		}
-
 	}
 	
-	private static void writeToFile()
+	private static void writeToFile(File f) throws IOException
 	{
+		System.out.println();
+		System.out.println();
+		
+		FileInputStream file = new FileInputStream(
+				new File(f.getPath()));
 
-		/*
-		 * XSSFWorkbook wb = new XSSFWorkbook(); 
-		 * XSSFSheet sheet = wb.createSheet("new sheet");
-		 * 
-		 * // Create a row and put some cells in it. Rows are 0 based. 
-		 * XSSFRow row = sheet.createRow((short)0); 
-		 * 
-		 * // Create a cell and put a value in it. 
-		 * XSSFCell cell = row.createCell(0); cell.setCellValue(1);
-		 * 
-		 * // Or do it on one line. 
-		 * row.createCell(1).setCellValue(1.2);
-		 * row.createCell(2).setCellValue(true);
-		 * 
-		 * row = sheet.createRow((short)1);
-		 * row.createCell(0).setCellValue("Hello world");
-		 * 
-		 * // Write the output to a file FileOutputStream out;
-		 *  try { 
-		 *  	out = new FileOutputStream("workbook.xls");
-		 * 
-		 * 		wb.write(out); out.close();
-		 * 
-		 * } catch (IOException e) { 
-		 * 		// TODO Auto-generated catch block
-		 * 		e.printStackTrace(); 
-		 * }
-		 */
+		// Create Workbook instance holding reference to .xlsx file
+		XSSFWorkbook wb = new XSSFWorkbook(file);
+
+		// Get first/desired sheet from the workbook
+		XSSFSheet sheet = wb.getSheetAt(0);
+
+		Iterator<Row> rowIterator = sheet.iterator();
+		Row row = rowIterator.next();
+		
+		row = rowIterator.next(); // skip the data types row
+
+		for (int i = 0; i < inventory.length; i++) 
+		{
+			Iterator<Cell> cellIterator = row.cellIterator();
+
+			Cell cell = cellIterator.next();
+			
+			cell.setCellValue(inventory[i].name);
+			cell = cellIterator.next();
+			cell.setCellValue(inventory[i].partNumber);
+			cell = cellIterator.next();
+			cell.setCellValue(inventory[i].desc);
+			cell = cellIterator.next();
+			cell.setCellValue(inventory[i].keyWord);
+			
+			System.out.println("Writing: " + inventory[i].name);
+			
+			if(rowIterator.hasNext())
+				row = rowIterator.next();
+		}
+
+		// Write the output to a file FileOutputStream out;
+		FileOutputStream out = new FileOutputStream("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xlsx");
+
+		wb.write(out);
+		out.close();
 	}
 
 }
