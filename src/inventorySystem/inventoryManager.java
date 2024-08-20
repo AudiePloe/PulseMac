@@ -115,14 +115,16 @@ public class inventoryManager {
 		// Get first/desired sheet from the workbook
 		XSSFSheet sheet = wb.getSheetAt(0);
 
-		inventory = new Item[sheet.getLastRowNum() + 1];
 		
 		// Iterate through each rows one by one
 		Iterator<Row> rowIterator = sheet.iterator();
 		
+		inventory = new Item[sheet.getLastRowNum()]; // if no data type is on the excel sheet, add a +1 to the array count
+		Row row = rowIterator.next();  // Skipping the first entry that shows the data types for excel users.
+		
 		while (rowIterator.hasNext()) 
 		{
-			Row row = rowIterator.next();
+			row = rowIterator.next();
 			
 			// For each row, iterate through all the columns
 			Iterator<Cell> cellIterator = row.cellIterator();
@@ -132,7 +134,17 @@ public class inventoryManager {
 			Cell cell = cellIterator.next();
 			inventory[rownum].name = cell.getStringCellValue();
 			cell = cellIterator.next();
-			inventory[rownum].partNumber = cell.getStringCellValue();
+			
+			switch (cell.getCellType()) 
+            {
+                case Cell.CELL_TYPE_NUMERIC:
+                	inventory[rownum].partNumber = (int)cell.getNumericCellValue() + "";
+                    break;
+                case Cell.CELL_TYPE_STRING:
+                	inventory[rownum].partNumber = cell.getStringCellValue();
+                    break;
+            }
+			
 			cell = cellIterator.next();
 			inventory[rownum].desc = cell.getStringCellValue();
 			cell = cellIterator.next();
