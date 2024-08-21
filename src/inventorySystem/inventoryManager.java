@@ -24,12 +24,13 @@ class Item
 {
 	String name;
 	String partNumber;
+	int quantity;
 	String desc;
 	String keyWord;
 	
 	public void printItem()
 	{
-		System.out.println(name + ", " + partNumber + ", " + desc + ", " + keyWord);
+		System.out.print(name + "," + partNumber + ", " + quantity + ", " + desc + ", " + keyWord);
 	}
 }
 
@@ -96,7 +97,7 @@ public class inventoryManager {
 	private static void initilize()
 	{
 		try {
-			loadItems();
+			inventory = readItems(workBook);
 			loadProjects();
 			writeToFile(workBook, inventory);
 
@@ -106,12 +107,13 @@ public class inventoryManager {
 		}
 	}
 	
-	private static void loadItems() throws Exception
+	private static Item[] readItems(File f) throws Exception
 	{
 		int rownum = 0;
+		Item[] items;
 
 		FileInputStream file = new FileInputStream(
-				new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xlsx"));
+				new File(f.getPath()));
 
 		// Create Workbook instance holding reference to .xlsx file
 		XSSFWorkbook wb = new XSSFWorkbook(file);
@@ -123,7 +125,7 @@ public class inventoryManager {
 		// Iterate through each rows one by one
 		Iterator<Row> rowIterator = sheet.iterator();
 		
-		inventory = new Item[sheet.getLastRowNum()]; // if no data type is on the excel sheet, add a +1 to the array count
+		items = new Item[sheet.getLastRowNum()]; // if no data type is on the excel sheet, add a +1 to the array count
 		Row row = rowIterator.next();
 		
 		while (rowIterator.hasNext()) 
@@ -133,40 +135,43 @@ public class inventoryManager {
 			// For each row, iterate through all the columns
 			Iterator<Cell> cellIterator = row.cellIterator();
 
-			inventory[rownum] = new Item();
+			items[rownum] = new Item();
 			
 			Cell cell = cellIterator.next();
-			inventory[rownum].name = cell.getStringCellValue();
+			items[rownum].name = cell.getStringCellValue();
 			cell = cellIterator.next();
 			
 			switch (cell.getCellType()) 
             {
                 case Cell.CELL_TYPE_NUMERIC:
-                	inventory[rownum].partNumber = (int)cell.getNumericCellValue() + "";
+                	items[rownum].partNumber = (int)cell.getNumericCellValue() + "";
                     break;
                 case Cell.CELL_TYPE_STRING:
-                	inventory[rownum].partNumber = cell.getStringCellValue();
+                	items[rownum].partNumber = cell.getStringCellValue();
                     break;
             }
-			
 			cell = cellIterator.next();
-			inventory[rownum].desc = cell.getStringCellValue();
+			items[rownum].quantity = (int)cell.getNumericCellValue();
 			cell = cellIterator.next();
-			inventory[rownum].keyWord = cell.getStringCellValue();
+			items[rownum].desc = cell.getStringCellValue();
+			cell = cellIterator.next();
+			items[rownum].keyWord = cell.getStringCellValue();
 			
 			rownum++;
 		}
 		
 		// show data read from file
-		for(int i = 0; i < inventory.length; i++)
+		for(int i = 0; i < items.length; i++)
 		{
-			inventory[i].printItem();
+			items[i].printItem();
 			System.out.println();
 		}
 		
 		System.out.println("");
 
 		file.close();
+		
+		return items;
 	}
 	
 	private static void loadProjects()
@@ -202,12 +207,12 @@ public class inventoryManager {
 		{
 			System.out.println(projects[i].getName());
 		}
+
+		System.out.println();
 	}
 	
 	private static void writeToFile(File f, Item[] items) throws IOException
 	{
-		System.out.println();
-		System.out.println();
 		
 		FileInputStream file = new FileInputStream(
 				new File(f.getPath()));
@@ -233,6 +238,8 @@ public class inventoryManager {
 			cell = cellIterator.next();
 			cell.setCellValue(items[i].partNumber);
 			cell = cellIterator.next();
+			cell.setCellValue(items[i].quantity);
+			cell = cellIterator.next();
 			cell.setCellValue(items[i].desc);
 			cell = cellIterator.next();
 			cell.setCellValue(items[i].keyWord);
@@ -248,6 +255,11 @@ public class inventoryManager {
 
 		wb.write(out);
 		out.close();
+	}
+	
+	private void editFile(File f)
+	{
+		
 	}
 
 }
