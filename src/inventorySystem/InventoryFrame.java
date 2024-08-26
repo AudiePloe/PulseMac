@@ -10,11 +10,18 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.JTextPane;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class InventoryFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JTextField linkTextField;
 
 	/**
 	 * Launch the application.
@@ -37,30 +44,26 @@ public class InventoryFrame extends JFrame {
 	 */
 	public InventoryFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 898, 578);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		splitPane.setBounds(11, 10, 415, 243);
-		contentPane.add(splitPane);
 		
 		JLabel inventoryTitleText = new JLabel("Inventory");
+		inventoryTitleText.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		inventoryTitleText.setHorizontalAlignment(SwingConstants.CENTER);
 		splitPane.setLeftComponent(inventoryTitleText);
 		
 		JPanel panel = new JPanel();
 		splitPane.setRightComponent(panel);
-		panel.setLayout(null);
 		
 		JSplitPane splitPane_1 = new JSplitPane();
-		splitPane_1.setResizeWeight(0.75);
+		splitPane_1.setResizeWeight(0.25);
 		splitPane_1.setOneTouchExpandable(true);
-		splitPane_1.setBounds(1, 1, 412, 222);
-		panel.add(splitPane_1);
 	
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -105,5 +108,75 @@ public class InventoryFrame extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		splitPane_1.setRightComponent(panel_1);
+		
+		JTextPane txtpnInsertDescriptionHere = new JTextPane();
+		txtpnInsertDescriptionHere.setText("Insert description here");
+		
+		JLabel DescLabel = new JLabel("Description");
+		DescLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		DescLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JLabel LinkLabel = new JLabel("Link");
+		LinkLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		LinkLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		linkTextField = new JTextField();
+		linkTextField.setText("Insert link here");
+		linkTextField.setColumns(10);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addGap(10)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+						.addComponent(txtpnInsertDescriptionHere, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+						.addComponent(DescLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+						.addComponent(LinkLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+						.addComponent(linkTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(DescLabel)
+					.addGap(10)
+					.addComponent(txtpnInsertDescriptionHere, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
+					.addGap(10)
+					.addComponent(LinkLabel)
+					.addGap(10)
+					.addComponent(linkTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(177))
+		);
+		panel_1.setLayout(gl_panel_1);
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(1)
+					.addComponent(splitPane_1))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(1)
+					.addComponent(splitPane_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+		);
+		panel.setLayout(gl_panel);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(6)
+					.addComponent(splitPane, GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
+					.addGap(5))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(5)
+					.addComponent(splitPane, GroupLayout.PREFERRED_SIZE, 521, GroupLayout.PREFERRED_SIZE))
+		);
+		contentPane.setLayout(gl_contentPane);
 	}
 }
