@@ -19,6 +19,12 @@ import java.awt.Font;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.JButton;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.border.SoftBevelBorder;
 
 public class projectsSelectFrame extends JFrame {
 
@@ -64,31 +70,36 @@ public class projectsSelectFrame extends JFrame {
 		projectNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JSplitPane splitPane_1 = new JSplitPane();
-		splitPane_1.setResizeWeight(0.5);
+		splitPane_1.setResizeWeight(0.1);
 		
-		JSplitPane splitPane_1_1 = new JSplitPane();
-		splitPane_1_1.setResizeWeight(0.5);
-		
-		JLabel projectPartsLabel = new JLabel("Parts");
-		splitPane_1_1.setLeftComponent(projectPartsLabel);
-		
-		JLabel projectPartsField = new JLabel("123");
-		splitPane_1_1.setRightComponent(projectPartsField);
-		
-		JLabel projectDateLabel = new JLabel("Date");
+		JLabel projectDateLabel = new JLabel("Date:");
 		splitPane_1.setLeftComponent(projectDateLabel);
 		
-		JLabel projectDateField = new JLabel("05/25/2000");
+		JLabel projectDateField = new JLabel("00/00/0000");
+		projectDateField.setHorizontalAlignment(SwingConstants.LEFT);
 		splitPane_1.setRightComponent(projectDateField);
+		
+		JSplitPane splitPane_2 = new JSplitPane();
+		splitPane_2.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		
+		JPanel descPanel = new JPanel();
+		descPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addGap(10)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(projectNameLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-						.addComponent(splitPane_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-						.addComponent(splitPane_1_1))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(splitPane_2, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(10)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(splitPane_1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+								.addComponent(projectNameLabel, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(descPanel, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
@@ -99,9 +110,36 @@ public class projectsSelectFrame extends JFrame {
 					.addGap(78)
 					.addComponent(splitPane_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(splitPane_1_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(196))
+					.addComponent(descPanel, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(splitPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(47))
 		);
+		
+		JLabel projectDescriptionLabel = new JLabel("Description");
+		projectDescriptionLabel.setVerticalAlignment(SwingConstants.TOP);
+		GroupLayout gl_descPanel = new GroupLayout(descPanel);
+		gl_descPanel.setHorizontalGroup(
+			gl_descPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_descPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(projectDescriptionLabel, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		gl_descPanel.setVerticalGroup(
+			gl_descPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_descPanel.createSequentialGroup()
+					.addGap(5)
+					.addComponent(projectDescriptionLabel, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		descPanel.setLayout(gl_descPanel);
+		
+		JButton projectEditButton = new JButton("Edit Project");
+		splitPane_2.setLeftComponent(projectEditButton);
+		
+		JButton projectBuildButton = new JButton("Build Project");
+		splitPane_2.setRightComponent(projectBuildButton);
 		panel.setLayout(gl_panel);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -115,17 +153,14 @@ public class projectsSelectFrame extends JFrame {
 					node_1 = new DefaultMutableTreeNode("PulseMac");
 						node_1.add(new DefaultMutableTreeNode("Pond 2.0"));
 					add(node_1);
-					node_1 = new DefaultMutableTreeNode("L&S Proline");
-						node_1.add(new DefaultMutableTreeNode("4B UPS"));
-						node_1.add(new DefaultMutableTreeNode("6B UPS"));
-						node_1.add(new DefaultMutableTreeNode("RTU"));
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("EOG");
-						node_1.add(new DefaultMutableTreeNode("Rock"));
-					add(node_1);
 					node_1 = new DefaultMutableTreeNode("Flozone");
 						node_1.add(new DefaultMutableTreeNode("Standard"));
 						node_1.add(new DefaultMutableTreeNode("3rd Party"));
+					add(node_1);
+					node_1 = new DefaultMutableTreeNode("L&S Proline");
+						node_1.add(new DefaultMutableTreeNode("4 Battery UPS"));
+						node_1.add(new DefaultMutableTreeNode("6 Battery UPS"));
+						node_1.add(new DefaultMutableTreeNode("RTU"));
 					add(node_1);
 				}
 			}
