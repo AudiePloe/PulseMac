@@ -44,7 +44,6 @@ public class inventoryManager {
 	
 	private static File[] projects;
 	
-	
 	//load all required resources
 			//load main screen
 			
@@ -84,13 +83,10 @@ public class inventoryManager {
 				//remove item
 					//delete item from inventory
 					//save inventory
-				  
-	
 	
 	public static void main(String[] args)
 	{
 		initilize();
-		
 		
 	}
 	
@@ -257,7 +253,7 @@ public class inventoryManager {
 		out.close();
 	}
 	
-	private void editFile(File f)
+	private void editFileRoutine(File f)
 	{
 		
 	}
