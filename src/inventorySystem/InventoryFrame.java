@@ -48,6 +48,7 @@ public class InventoryFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public InventoryFrame() {
+		setTitle("Inventory");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 898, 578);
 		
