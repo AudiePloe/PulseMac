@@ -5,28 +5,27 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.JTextPane;
-import javax.swing.JTextField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JToolBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
+import javax.swing.JSplitPane;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JTextPane;
 
-public class InventoryFrame extends JFrame {
+public class projectInventoryFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTable inventoryTable;
-	private JTextField linkTextField;
+	private JTextField txtInsertLinkHere;
 
 	/**
 	 * Launch the application.
@@ -35,7 +34,7 @@ public class InventoryFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InventoryFrame frame = new InventoryFrame();
+					projectInventoryFrame frame = new projectInventoryFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,10 +46,10 @@ public class InventoryFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InventoryFrame() {
-		setTitle("Inventory");
+	public projectInventoryFrame() {
+		setTitle("Project name here");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 898, 578);
+		setBounds(100, 100, 807, 489);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -61,8 +60,8 @@ public class InventoryFrame extends JFrame {
 		JMenuItem menuItemSave = new JMenuItem("Save");
 		mnNewMenu.add(menuItemSave);
 		
-		JMenuItem menuItemSaveAndExit = new JMenuItem("Save and exit");
-		mnNewMenu.add(menuItemSaveAndExit);
+		JMenuItem mennuItemSaveAndExit = new JMenuItem("Save and Exit");
+		mnNewMenu.add(mennuItemSaveAndExit);
 		
 		JMenuItem menuItemBackToMain = new JMenuItem("Back to Main Menu");
 		mnNewMenu.add(menuItemBackToMain);
@@ -74,18 +73,57 @@ public class InventoryFrame extends JFrame {
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		
-		JLabel inventoryTitleText = new JLabel("Inventory");
-		inventoryTitleText.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		inventoryTitleText.setHorizontalAlignment(SwingConstants.CENTER);
-		splitPane.setLeftComponent(inventoryTitleText);
-		
 		JPanel panel = new JPanel();
 		splitPane.setRightComponent(panel);
 		
 		JSplitPane splitPane_1 = new JSplitPane();
-		splitPane_1.setResizeWeight(0.65);
 		splitPane_1.setOneTouchExpandable(true);
-	
+		splitPane_1.setResizeWeight(0.5);
+		
+		JPanel panel_1 = new JPanel();
+		splitPane_1.setRightComponent(panel_1);
+		
+		JLabel descLabel = new JLabel("Description");
+		descLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		descLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JTextPane txtpnInsertDescriptionHere = new JTextPane();
+		txtpnInsertDescriptionHere.setText("Insert description here");
+		txtpnInsertDescriptionHere.setToolTipText("");
+		
+		JLabel linkLabel = new JLabel("Link");
+		linkLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		linkLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		txtInsertLinkHere = new JTextField();
+		txtInsertLinkHere.setText("Insert link here");
+		txtInsertLinkHere.setColumns(10);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(linkLabel, GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+						.addComponent(txtpnInsertDescriptionHere, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+						.addComponent(descLabel, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+						.addComponent(txtInsertLinkHere, GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(5)
+					.addComponent(descLabel)
+					.addGap(18)
+					.addComponent(txtpnInsertDescriptionHere, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
+					.addGap(26)
+					.addComponent(linkLabel)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(txtInsertLinkHere, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(96, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		splitPane_1.setLeftComponent(scrollPane);
@@ -95,88 +133,41 @@ public class InventoryFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Name", "Part Number", "Quantity", "KeyWord"
+				"Name", "Part Number", "Quantity"
 			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+		));
 		scrollPane.setViewportView(inventoryTable);
-		
-		JPanel panel_1 = new JPanel();
-		splitPane_1.setRightComponent(panel_1);
-		
-		JTextPane txtpnInsertDescriptionHere = new JTextPane();
-		txtpnInsertDescriptionHere.setText("Insert description here");
-		
-		JLabel descLabel = new JLabel("Description");
-		descLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		descLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		JLabel linkLabel = new JLabel("Link");
-		linkLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		linkLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		linkTextField = new JTextField();
-		linkTextField.setText("Insert link here");
-		linkTextField.setColumns(10);
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-					.addGap(10)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-						.addComponent(txtpnInsertDescriptionHere, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-						.addComponent(descLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-						.addComponent(linkLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-						.addComponent(linkTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(descLabel)
-					.addGap(10)
-					.addComponent(txtpnInsertDescriptionHere, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
-					.addComponent(linkLabel)
-					.addGap(10)
-					.addComponent(linkTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(177))
-		);
-		panel_1.setLayout(gl_panel_1);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(1)
-					.addComponent(splitPane_1))
+					.addGap(10)
+					.addComponent(splitPane_1, GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(1)
-					.addComponent(splitPane_1))
+					.addGap(5)
+					.addComponent(splitPane_1, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
+		
+		JLabel projectTitleText = new JLabel("Project List");
+		projectTitleText.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		projectTitleText.setHorizontalAlignment(SwingConstants.CENTER);
+		splitPane.setLeftComponent(projectTitleText);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(6)
-					.addComponent(splitPane, GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
-					.addGap(5))
+					.addGap(10)
+					.addComponent(splitPane))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(5)
-					.addComponent(splitPane, GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE))
+					.addComponent(splitPane)
+					.addGap(10))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

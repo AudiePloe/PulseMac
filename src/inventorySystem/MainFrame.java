@@ -13,6 +13,8 @@ import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.Font;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class MainFrame extends JFrame {
 
@@ -38,6 +40,7 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		setResizable(false);
 		setTitle("InventoryManager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -45,11 +48,10 @@ public class MainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setBounds(132, 130, 171, 23);
-		contentPane.add(splitPane);
+		splitPane.setResizeWeight(0.5);
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		
 		JButton inventoryButton = new JButton("Inventory");
 		splitPane.setLeftComponent(inventoryButton);
@@ -60,7 +62,27 @@ public class MainFrame extends JFrame {
 		JLabel lblNewLabel = new JLabel("Main Menu");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(150, 61, 126, 23);
-		contentPane.add(lblNewLabel);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(146)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(154, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(123)
+					.addComponent(splitPane, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(132, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(56)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(splitPane, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(87, Short.MAX_VALUE))
+		);
+		contentPane.setLayout(gl_contentPane);
 	}
 }
