@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout;
@@ -24,9 +27,14 @@ import javax.swing.JMenu;
 
 public class InventoryFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable inventoryTable;
-	private JTextField linkTextField;
+	public JTable inventoryTable;
+	public JTextField linkTextField;
+	public JTextPane descriptionText;
 
 	/**
 	 * Launch the application.
@@ -66,6 +74,11 @@ public class InventoryFrame extends JFrame {
 		
 		JMenuItem menuItemBackToMain = new JMenuItem("Back to Main Menu");
 		mnNewMenu.add(menuItemBackToMain);
+		menuItemBackToMain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIManager.t.goToMainMenu();
+			}
+		});
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -98,6 +111,10 @@ public class InventoryFrame extends JFrame {
 				"Name", "Part Number", "Quantity", "KeyWord"
 			}
 		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			Class[] columnTypes = new Class[] {
 				String.class, String.class, String.class, String.class
 			};
@@ -110,8 +127,8 @@ public class InventoryFrame extends JFrame {
 		JPanel panel_1 = new JPanel();
 		splitPane_1.setRightComponent(panel_1);
 		
-		JTextPane txtpnInsertDescriptionHere = new JTextPane();
-		txtpnInsertDescriptionHere.setText("Insert description here");
+		descriptionText = new JTextPane();
+		descriptionText.setText("Insert description here");
 		
 		JLabel descLabel = new JLabel("Description");
 		descLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -130,7 +147,7 @@ public class InventoryFrame extends JFrame {
 				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
 					.addGap(10)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-						.addComponent(txtpnInsertDescriptionHere, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+						.addComponent(descriptionText, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 						.addComponent(descLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
 						.addComponent(linkLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 						.addComponent(linkTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
@@ -142,7 +159,7 @@ public class InventoryFrame extends JFrame {
 					.addContainerGap()
 					.addComponent(descLabel)
 					.addGap(10)
-					.addComponent(txtpnInsertDescriptionHere, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
+					.addComponent(descriptionText, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
 					.addGap(10)
 					.addComponent(linkLabel)
 					.addGap(10)

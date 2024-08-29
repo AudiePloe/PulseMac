@@ -14,6 +14,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
@@ -21,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextPane;
 
-public class projectInventoryFrame extends JFrame {
+public class ProjectInventoryFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTable inventoryTable;
@@ -34,7 +37,7 @@ public class projectInventoryFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					projectInventoryFrame frame = new projectInventoryFrame();
+					ProjectInventoryFrame frame = new ProjectInventoryFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +49,7 @@ public class projectInventoryFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public projectInventoryFrame() {
+	public ProjectInventoryFrame() {
 		setTitle("Project name here");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 807, 489);
@@ -65,12 +68,24 @@ public class projectInventoryFrame extends JFrame {
 		
 		JMenuItem menuItemBackToMain = new JMenuItem("Back to Main Menu");
 		mnNewMenu.add(menuItemBackToMain);
+		menuItemBackToMain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIManager.t.goToMainMenu();
+			}
+		});
+		
+		JMenu buildMenu = new JMenu("Build");
+		menuBar.add(buildMenu);
+		
+		JMenuItem menuItemSaveAndBuild = new JMenuItem("Save and Build Project");
+		buildMenu.add(menuItemSaveAndBuild);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		
 		JSplitPane splitPane = new JSplitPane();
+		splitPane.setEnabled(false);
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		
 		JPanel panel = new JPanel();

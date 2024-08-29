@@ -20,22 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
-class Item
-{
-	String name;
-	String partNumber;
-	int quantity;
-	String desc;
-	String keyWord;
-	
-	public void printItem()
-	{
-		System.out.print(name + "," + partNumber + ", " + quantity + ", " + desc + ", " + keyWord);
-	}
-}
-
-
-public class inventoryManager {
+public class InventoryManager {
 	
 	//private static XSSFWorkbook inventorySheet;
 	
@@ -43,6 +28,8 @@ public class inventoryManager {
 	private static File workBook = new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xlsx");
 	
 	private static File[] projects;
+	
+	//GUIManager guiManager = new GUIManager();
 	
 	//load all required resources
 			//load main screen
@@ -87,7 +74,8 @@ public class inventoryManager {
 	public static void main(String[] args)
 	{
 		initilize();
-		
+		GUIManager.t.init();
+		GUIManager.t.loadToTable(inventory);
 	}
 	
 	private static void initilize()

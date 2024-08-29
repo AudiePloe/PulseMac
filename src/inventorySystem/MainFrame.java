@@ -1,5 +1,6 @@
 package inventorySystem;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -15,6 +16,8 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
 
@@ -54,9 +57,21 @@ public class MainFrame extends JFrame {
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		
 		JButton inventoryButton = new JButton("Inventory");
+		inventoryButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				GUIManager.t.goToinv();
+			}
+		});
 		splitPane.setLeftComponent(inventoryButton);
 		
 		JButton projectsButton = new JButton("Projects");
+		projectsButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				GUIManager.t.goToProjSelect();
+			}
+		});
 		splitPane.setRightComponent(projectsButton);
 		
 		JLabel lblNewLabel = new JLabel("Main Menu");

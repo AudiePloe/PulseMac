@@ -8,11 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JSplitPane;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -21,13 +17,13 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.SoftBevelBorder;
 
-public class projectsSelectFrame extends JFrame {
+public class ProjectSelectFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -37,7 +33,7 @@ public class projectsSelectFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					projectsSelectFrame frame = new projectsSelectFrame();
+					ProjectSelectFrame frame = new ProjectSelectFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +45,7 @@ public class projectsSelectFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public projectsSelectFrame() {
+	public ProjectSelectFrame() {
 		setTitle("Project Select");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 553, 420);
@@ -148,6 +144,11 @@ public class projectsSelectFrame extends JFrame {
 		JTree tree = new JTree();
 		tree.setModel(new DefaultTreeModel(
 			new DefaultMutableTreeNode("Projects") {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
 				{
 					DefaultMutableTreeNode node_1;
 					node_1 = new DefaultMutableTreeNode("PulseMac");
