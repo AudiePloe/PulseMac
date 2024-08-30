@@ -4,12 +4,13 @@ public class Item
 {
 	String name;
 	String partNumber;
-	int quantity;
+	String quantity;
 	String desc;
 	String keyWord;
+	String link = "https: ";
 	
 	public void printItem()
 	{
-		System.out.print(name + "," + partNumber + ", " + quantity + ", " + desc + ", " + keyWord);
+		System.out.print(name + "," + partNumber + ", " + quantity + ", " + desc + ", " + keyWord + ", " + link);
 	}
 }

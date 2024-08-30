@@ -24,12 +24,12 @@ public class InventoryManager {
 	
 	//private static XSSFWorkbook inventorySheet;
 	
-	private static Item[] inventory;
-	private static File workBook = new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xlsx");
+	public static Item[] inventory;
+	public static File workBook = new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xlsx");
 	
 	private static File[] projects;
 	
-	//GUIManager guiManager = new GUIManager();
+	//public static InventoryManager t = new InventoryManager();
 	
 	//load all required resources
 			//load main screen
@@ -135,7 +135,7 @@ public class InventoryManager {
                     break;
             }
 			cell = cellIterator.next();
-			items[rownum].quantity = (int)cell.getNumericCellValue();
+			items[rownum].quantity = cell.getStringCellValue() + "";
 			cell = cellIterator.next();
 			items[rownum].desc = cell.getStringCellValue();
 			cell = cellIterator.next();
@@ -195,6 +195,16 @@ public class InventoryManager {
 		System.out.println();
 	}
 	
+	public static void refreshFile()
+	{
+		try {
+			writeToFile(workBook, inventory);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	private static void writeToFile(File f, Item[] items) throws IOException
 	{
 		
@@ -241,9 +251,14 @@ public class InventoryManager {
 		out.close();
 	}
 	
-	private void editFileRoutine(File f)
+	public static void printInventory()
 	{
-		
+		System.out.println();
+		for(int i = 0; i < inventory.length; i++)
+		{
+			inventory[i].printItem();
+			System.out.println();
+		}
 	}
 
 }

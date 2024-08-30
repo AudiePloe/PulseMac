@@ -68,6 +68,11 @@ public class InventoryFrame extends JFrame {
 		
 		JMenuItem menuItemSave = new JMenuItem("Save");
 		mnNewMenu.add(menuItemSave);
+		menuItemSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIManager.t.unloadFromTable();
+			}
+		});
 		
 		JMenuItem menuItemSaveAndExit = new JMenuItem("Save and exit");
 		mnNewMenu.add(menuItemSaveAndExit);
@@ -106,22 +111,12 @@ public class InventoryFrame extends JFrame {
 		inventoryTable = new JTable();
 		inventoryTable.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null, null},
 			},
 			new String[] {
 				"Name", "Part Number", "Quantity", "KeyWord"
 			}
-		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+		));
 		scrollPane.setViewportView(inventoryTable);
 		
 		JPanel panel_1 = new JPanel();

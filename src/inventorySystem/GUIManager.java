@@ -1,5 +1,7 @@
 package inventorySystem;
 
+import java.awt.print.PrinterException;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -13,7 +15,7 @@ public class GUIManager {
 	private static ProjectSelectFrame projSelFrame;
 	private static ProjectInventoryFrame projInvFrame;
 	
-	private TableModel invTable;
+	private static TableModel invTable;
 
 	public static GUIManager t = new GUIManager();
 	
@@ -78,7 +80,30 @@ public class GUIManager {
 			invTable.setValueAt(items[i].keyWord, i, 3);
 		}
 		
-		invFrame.inventoryTable = new JTable(invTable);
+		invFrame.inventoryTable.setModel(invTable);
+	}
+	
+	public void unloadFromTable()
+	{
+		TableModel tm = invFrame.inventoryTable.getModel();
+		Item[] newItems = new Item[tm.getRowCount()];
+		
+		for(int i = 0; i < newItems.length; i++)
+		{
+			newItems[i] = new Item();
+			newItems[i].name = (String) tm.getValueAt(i, 0);
+			newItems[i].partNumber = (String) tm.getValueAt(i, 1);
+			newItems[i].quantity = (String) tm.getValueAt(i, 2);
+			newItems[i].keyWord = (String) tm.getValueAt(i, 3);
+			
+			newItems[i].desc = InventoryManager.inventory[i].desc;
+			newItems[i].link = InventoryManager.inventory[i].link;
+
+		}
+		
+		InventoryManager.inventory = newItems;
+		InventoryManager.refreshFile();
+		InventoryManager.printInventory();
 	}
 	
 }
