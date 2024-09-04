@@ -123,6 +123,7 @@ public class InventoryFrame extends JFrame {
 		splitPane_1.setRightComponent(panel_1);
 		
 		descriptionText = new JTextPane();
+		descriptionText.setEditable(false);
 		descriptionText.setText("Insert description here");
 		
 		JLabel descLabel = new JLabel("Description");
@@ -134,6 +135,7 @@ public class InventoryFrame extends JFrame {
 		linkLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		linkTextField = new JTextField();
+		linkTextField.setEditable(false);
 		linkTextField.setText("Insert link here");
 		linkTextField.setColumns(10);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);

@@ -1,5 +1,7 @@
 package inventorySystem;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.print.PrinterException;
 
 import javax.swing.JTable;
@@ -31,6 +33,8 @@ public class GUIManager {
 		invFrame.setVisible(false);
 		projSelFrame.setVisible(false);
 		projInvFrame.setVisible(false);
+		
+		invFrame.inventoryTable.addMouseListener(new TableClickListener());
 		
 	}
 	
@@ -106,4 +110,21 @@ public class GUIManager {
 		InventoryManager.printInventory();
 	}
 	
+	
+	class TableClickListener implements MouseListener {
+		
+        public void mouseClicked(MouseEvent e) {
+            int row = invFrame.inventoryTable.getSelectedRow();
+            
+            invFrame.descriptionText.setText(InventoryManager.inventory[row].desc);
+            invFrame.linkTextField.setText(InventoryManager.inventory[row].link); 
+        }
+
+        // Implement other mouse event methods (optional)
+        public void mousePressed(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {}
+        public void mouseEntered(MouseEvent e) {}
+        public void mouseExited(MouseEvent e) {}
+    }
 }
+	
