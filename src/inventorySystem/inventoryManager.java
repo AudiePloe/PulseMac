@@ -26,7 +26,7 @@ public class InventoryManager {
 	
 	public static Item[] inventory;
 	public static File workBook = new File("C:\\Users\\Altac\\eclipse-workspace\\PulseMac\\workbook.xlsx");
-	
+	 
 	private static File[] projects;
 	
 	//public static InventoryManager t = new InventoryManager();
@@ -143,6 +143,7 @@ public class InventoryManager {
 			
 			rownum++;
 		}
+		
 		
 		// show data read from file
 		for(int i = 0; i < items.length; i++)
